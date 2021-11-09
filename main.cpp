@@ -36,7 +36,6 @@ void ajuda(char * path) {
 
 int parse_args(char **argv, Options & opcoes) {
     Argparse args;
-    int  atraso;
     char op;
     
     args.add_option('b', "0");
@@ -70,13 +69,14 @@ int parse_args(char **argv, Options & opcoes) {
     
     try {
         opcoes.atraso = stoi(args['a']);
-        if (atraso < 0) {
+        if (opcoes.atraso < 0) {
           printf("Erro: atraso deve ser > 0\n");
           return 0;
         }
     } catch (...) {
-        printf("Erro: opção -a requer um valor inteiro (atraso em milissegundos)\n");
-        return 0;
+        printf("Aviso: opção -a requer um valor inteiro (atraso em milissegundos)\n");
+        printf("Ignorando e definindo atraso=0\n");
+        opcoes.atraso = 0;
     }
     
     try {
