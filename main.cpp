@@ -123,6 +123,8 @@ int main(int argc, char** argv) {
         }
     }
 
+    handle_queue();
+
     #ifdef LOG
     logf = fopen("se.log", "w");
     #endif

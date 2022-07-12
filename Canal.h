@@ -31,6 +31,7 @@
 #include <time.h>
 #include <termios.h>
 #include <sys/time.h>
+#include <thread>
 #include "tipos.h"
 
 using namespace std;
@@ -48,6 +49,7 @@ public:
     virtual ~Canal();
     int verifica_fila();
     int adiciona_buffer();
+    void operator()();
 private:
     struct Data {
       char buffer[MAXIMO];
@@ -64,12 +66,13 @@ private:
     double ber;
     int chunk; // quantidade de bytes enviada a cada vez pela serial
     int bitrate;
+    std::thread task;
     pthread_mutex_t mutex;
     pthread_cond_t cond;
     pthread_t tid;
     
     char byte_error() const;
-    
+
     static void* do_tx(void * ptr);
     void run();
 };
