@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <string>
 #include <exception>
+#include <pty.h>
 
 using std::string;
 using std::exception;
@@ -43,6 +44,7 @@ private:
     char name[64];
     
     int setup_pty();
+    static termios gen_term_conf();
 };
 
 #endif /* PTS_H */
